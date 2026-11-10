@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#101a19" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23b9da7a' d='M3 3h12v12H3zm14 0h12v12H17zM3 17h12v12H3zm14 0h12v12H17z'/%3E%3C/svg%3E" />
+  <title>Block &amp; Beam — Tetris House Builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Block and Beam home"><span class="brand-mark"><i></i><i></i><i></i><i></i></span><span>BLOCK<span class="brand-amp">&amp;</span>BEAM</span></a>
+      <div class="top-center"><span class="live-dot"></span> YOUR LITTLE CORNER OF THE WORLD</div>
+      <button class="sound-toggle" id="soundToggle" aria-label="Toggle sound" title="Toggle sound"><span id="soundIcon">♫</span><span>SOUND</span></button>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div class="eyebrow"><span>✦</span> THE COZIEST BLOCK-BUILDING GAME</div>
+        <h1>Drop blocks.<br><em>Build a home.</em></h1>
+        <p>Every line you clear brings your little world to life.</p>
+      </section>
+
+      <section class="game-layout" aria-label="Game area">
+        <div class="game-card">
+          <div class="game-topline">
+            <div class="game-label"><span class="tiny-cube">▰</span> THE BUILD SITE <span class="site-id">NO. 001</span></div>
+            <div class="status-pill" id="status"><span></span> READY TO BUILD</div>
+          </div>
+          <div class="gameplay-wrap">
+            <div class="board-wrap">
+              <div class="board-meta"><span>BLOCK DROP</span><span>10 × 18</span></div>
+              <div class="board-frame">
+                <canvas id="gameCanvas" width="500" height="720" aria-label="Tetris game board"></canvas>
+                <div id="startOverlay" class="start-overlay">
+                  <div class="overlay-icon">⌂</div>
+                  <div class="overlay-title">A blank little plot.</div>
+                  <div class="overlay-copy">Let's make it feel like home.</div>
+                  <button class="primary-button" id="startButton">START BUILDING <span>→</span></button>
+                  <div class="overlay-hint">OR PRESS <kbd>ENTER</kbd></div>
+                </div>
+                <div id="pauseOverlay" class="pause-overlay hidden"><span>Ⅱ</span><b>TAKE YOUR TIME</b><button id="resumeButton">RESUME</button></div>
+                <div id="gameOverOverlay" class="pause-overlay hidden"><span>⌂</span><b>ROOM FOR ONE MORE?</b><button id="retryButton">TRY AGAIN</button></div>
+              </div>
+              <div class="board-footer"><span><i class="footer-dot"></i> CURRENT BUILD</span><span>CHAPTER <b id="chapter">01</b></span></div>
+            </div>
+            <aside class="side-panel">
+              <div class="stats-row">
+                <div class="stat-box"><span class="stat-label">SCORE</span><strong id="score">00000</strong><span class="stat-sub">YOUR BEST <b id="best">00000</b></span></div>
+                <div class="stat-box"><span class="stat-label">LINES</span><strong id="lines">00</strong><span class="stat-sub">LEVEL <b id="level">01</b></span></div>
+              </div>
+              <div class="next-card">
+                <div class="card-heading"><span>NEXT UP</span><span class="sparkle">✳</span></div>
+                <canvas id="nextCanvas" width="200" height="130" aria-label="Next block"></canvas>
+                <div class="next-caption">A LITTLE SOMETHING TO BUILD WITH</div>
+              </div>
+              <div class="house-card">
+                <div class="house-card-top"><div><div class="card-heading">YOUR HOME</div><div class="house-name" id="houseName">The little starter</div></div><div class="house-icon">⌂</div></div>
+                <canvas id="houseCanvas" width="320" height="210" aria-label="Your house being built"></canvas>
+                <div class="build-progress"><div class="progress-label"><span>BUILD PROGRESS</span><b id="progressText">0%</b></div><div class="progress-track"><div id="progressBar"></div></div></div>
+                <div class="house-note"><span>✦</span><span id="houseMessage">Clear lines to lay the foundation.</span></div>
+              </div>
+              <div class="controls-card">
+                <div class="card-heading">HOW TO PLAY</div>
+                <div class="key-row"><span class="key-group"><kbd>←</kbd><kbd>→</kbd></span><span>Move blocks</span><span class="key-alt">A / D</span></div>
+                <div class="key-row"><span class="key-group"><kbd>↑</kbd></span><span>Rotate</span><span class="key-alt">W</span></div>
+                <div class="key-row"><span class="key-group"><kbd>↓</kbd></span><span>Soft drop</span><span class="key-alt">S</span></div>
+                <div class="key-row"><span class="key-group"><kbd>SPACE</kbd></span><span>Hard drop</span><span class="key-alt">P pause</span></div>
+              </div>
+            </aside>
+          </div>
+        </div>
+        <div class="bottom-note"><span>✿</span> NO RUSH. NO WRONG WAY. JUST MAKE YOURSELF AT HOME.</div>
+      </section>
+    </main>
+    <footer><span>MADE OF LITTLE THINGS <b>✳</b></span><span>BLOCK &amp; BEAM <span class="footer-sep">/</span> A COZY GAME FOR A COZY DAY</span></footer>
+  </div>
+  <div class="mobile-controls" aria-label="Touch controls">
+    <button data-action="left" aria-label="Move left">←</button><button data-action="rotate" aria-label="Rotate">↻</button><button data-action="right" aria-label="Move right">→</button><button data-action="down" aria-label="Soft drop">↓</button><button data-action="drop" aria-label="Hard drop">⇊</button>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
